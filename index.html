@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyMate AI - Smart Study Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+
+        <div class="logo">
+            <h1>📚 StudyMate <span>AI</span></h1>
+            <p>Your Personal AI Study Assistant</p>
+        </div>
+
+        <div class="header-buttons">
+            <button id="themeToggle">🌙</button>
+            <button id="settingsBtn">⚙️ Settings</button>
+        </div>
+
+    </header>
+
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+
+            <h2>Learn Smarter with AI 🚀</h2>
+
+            <p>
+                Turn your notes into summaries, quizzes and flashcards
+                with the power of Artificial Intelligence.
+            </p>
+
+        </section>
+
+
+        <!-- Settings Section -->
+        <section id="settingsSection" class="card hidden">
+
+            <h2>⚙️ API Settings</h2>
+
+            <label for="apiKey">Google Gemini API Key</label>
+
+            <input
+                type="password"
+                id="apiKey"
+                placeholder="Enter your Gemini API key"
+            >
+
+            <button id="saveKeyBtn">Save API Key</button>
+
+            <p id="settingsMessage">
+                Your API key will be saved in your browser.
+            </p>
+
+            <a
+                href="https://aistudio.google.com/app/apikey"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Get Free Gemini API Key
+            </a>
+
+        </section>
+
+
+        <!-- Notes Input Section -->
+        <section class="card input-section">
+
+            <h2>📝 Enter Your Study Notes</h2>
+
+            <p>Paste your class notes or enter any topic below.</p>
+
+            <textarea
+                id="notesInput"
+                placeholder="Example: Explain JavaScript functions, arrays, objects and loops..."
+            ></textarea>
+
+            <div class="input-info">
+
+                <span id="charCount">0 characters</span>
+
+                <span id="charWarning"></span>
+
+            </div>
+
+
+            <!-- Answer Style -->
+            <div class="form-group">
+
+                <label for="answerStyle">Choose Answer Style</label>
+
+                <select id="answerStyle">
+
+                    <option value="simple">
+                        Explain Like I am 10
+                    </option>
+
+                    <option value="exam">
+                        Exam Focused
+                    </option>
+
+                    <option value="detailed">
+                        Detailed Explanation
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Difficulty -->
+            <div class="form-group">
+
+                <label for="difficulty">Quiz Difficulty</label>
+
+                <select id="difficulty">
+
+                    <option value="easy">Easy</option>
+
+                    <option value="medium" selected>Medium</option>
+
+                    <option value="hard">Hard</option>
+
+                </select>
+
+            </div>
+
+
+            <button id="generateBtn">
+                ✨ Generate Study Material
+            </button>
+
+            <div id="loading" class="hidden">
+                <div class="loader"></div>
+                <p>AI is preparing your study material...</p>
+            </div>
+
+            <p id="errorMessage"></p>
+
+        </section>
+
+
+        <!-- Output Section -->
+        <section id="outputSection" class="card hidden">
+
+            <h2>🎓 Your Study Material</h2>
+
+            <!-- Tabs -->
+            <div class="tabs">
+
+                <button class="tab-btn active" data-tab="summary">
+                    Summary
+                </button>
+
+                <button class="tab-btn" data-tab="quiz">
+                    Quiz
+                </button>
+
+                <button class="tab-btn" data-tab="flashcards">
+                    Flashcards
+                </button>
+
+            </div>
+
+
+            <!-- Summary Tab -->
+            <div id="summary" class="tab-content">
+
+                <h3>📖 AI Summary</h3>
+
+                <div id="summaryContent">
+                    Your summary will appear here.
+                </div>
+
+                <div class="summary-buttons">
+
+                    <button id="copyBtn">
+                        📋 Copy Summary
+                    </button>
+
+                    <button id="downloadBtn">
+                        ⬇️ Download Summary
+                    </button>
+
+                    <button id="speakBtn">
+                        🔊 Read Aloud
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Quiz Tab -->
+            <div id="quiz" class="tab-content hidden">
+
+                <h3>🧠 Test Your Knowledge</h3>
+
+                <div id="quizContainer">
+                    Quiz questions will appear here.
+                </div>
+
+                <button id="submitQuizBtn" class="hidden">
+                    Submit Quiz
+                </button>
+
+                <div id="quizResult"></div>
+
+            </div>
+
+
+            <!-- Flashcards Tab -->
+            <div id="flashcards" class="tab-content hidden">
+
+                <h3>🗂️ AI Flashcards</h3>
+
+                <p>Click on a card to see its answer.</p>
+
+                <div id="flashcardContainer">
+                    Flashcards will appear here.
+                </div>
+
+                <div id="flashcardControls">
+
+                    <button id="previousCardBtn">
+                        ← Previous
+                    </button>
+
+                    <span id="cardCount">0 / 0</span>
+
+                    <button id="nextCardBtn">
+                        Next →
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button id="regenerateBtn">
+                🔄 Regenerate Material
+            </button>
+
+        </section>
+
+
+        <!-- History Section -->
+        <section class="card history-section">
+
+            <div class="history-header">
+
+                <h2>📚 Study History</h2>
+
+                <button id="clearHistoryBtn">
+                    Clear History
+                </button>
+
+            </div>
+
+            <input
+                type="text"
+                id="historySearch"
+                placeholder="Search previous study materials..."
+            >
+
+            <div id="historyContainer">
+
+                <p>No study history available yet.</p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>© 2026 StudyMate AI | Built with ❤️ by Kartik Shete</p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
