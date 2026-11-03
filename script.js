@@ -82,3 +82,47 @@ async function generateAIResponse(prompt) {
         throw error;
     }
 }
+// ===== PART 15: AI SUMMARY GENERATOR =====
+
+const notesInput = document.getElementById("notesInput");
+const generateSummaryBtn = document.getElementById("generateSummaryBtn");
+const summaryOutput = document.getElementById("summaryOutput");
+const loading = document.getElementById("loading");
+
+generateSummaryBtn.addEventListener("click", async function () {
+
+    const notes = notesInput.value.trim();
+
+    if (notes === "") {
+        alert("Please enter your notes first!");
+        return;
+    }
+
+    try {
+        loading.classList.remove("hidden");
+        summaryOutput.innerHTML = "";
+        generateSummaryBtn.disabled = true;
+
+        const prompt = `
+        Create a simple and easy-to-understand summary
+        of the following study notes.
+
+        Use clear headings and bullet points.
+
+        Notes:
+        ${notes}
+        `;
+
+        const result = await generateAIResponse(prompt);
+
+        summaryOutput.textContent = result;
+
+    } catch (error) {
+        summaryOutput.textContent = error.message;
+    }
+
+    finally {
+        loading.classList.add("hidden");
+        generateSummaryBtn.disabled = false;
+    }
+});
