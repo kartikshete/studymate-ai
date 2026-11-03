@@ -104,3 +104,90 @@ button:disabled {
     cursor: not-allowed;
     transform: none;
 }
+/* Output Sections */
+
+.output-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* Output Cards */
+
+.output-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+}
+
+.output-card:hover {
+    transform: translateY(-3px);
+}
+
+.output-card h3 {
+    color: #4f46e5;
+    margin-bottom: 15px;
+}
+
+.output-card p,
+.output-card li {
+    line-height: 1.7;
+    color: #475569;
+}
+
+.output-card ul {
+    padding-left: 20px;
+}
+
+/* Output Headings */
+
+.output-card h2 {
+    margin-bottom: 15px;
+    color: #334155;
+}
+/* Flashcard Container */
+
+.flashcard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Flashcard */
+
+.flashcard {
+    flex: 1 1 200px;
+    min-height: 150px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+/* Flashcard Hover */
+
+.flashcard:hover {
+    transform: scale(1.03);
+}
+
+/* Flashcard Text */
+
+.flashcard h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.flashcard p {
+    color: white;
+    line-height: 1.6;
+}
