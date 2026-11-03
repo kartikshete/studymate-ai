@@ -27,3 +27,58 @@ if (sessionStorage.getItem("geminiApiKey")) {
     apiStatus.textContent = "API key is configured.";
     apiStatus.className = "api-status success";
 }
+// ===== PART 14: GEMINI API CONNECTION =====
+
+async function generateAIResponse(prompt) {
+    const apiKey = sessionStorage.getItem("geminiApiKey");
+
+    if (!apiKey) {
+        throw new Error("Please save your Gemini API key first!");
+    }
+
+    if (!prompt.trim()) {
+        throw new Error("Please enter your notes or topic!");
+    }
+
+    const API_URL =
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent";
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json",
+                "x-goog-api-key": apiKey
+            },
+
+            body: JSON.stringify({
+                contents: [
+                    {
+                        parts: [
+                            {
+                                text: prompt
+                            }
+                        ]
+                    }
+                ]
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error?.message || "Gemini API request failed!"
+            );
+        }
+
+        return data.candidates[0].content.parts
+            .map(part => part.text || "")
+            .join("");
+
+    } catch (error) {
+        console.error("AI Error:", error);
+        throw error;
+    }
+}
