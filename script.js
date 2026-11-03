@@ -126,3 +126,105 @@ generateSummaryBtn.addEventListener("click", async function () {
         generateSummaryBtn.disabled = false;
     }
 });
+// ===== PART 16: AI QUIZ GENERATOR =====
+
+let quizData = [];
+
+async function generateQuiz(notes) {
+
+    const difficulty = document.getElementById("difficulty").value;
+
+    const prompt = `
+    Create exactly 5 multiple-choice questions based on these notes.
+
+    Difficulty: ${difficulty}
+
+    Return ONLY valid JSON in this format:
+
+    {
+        "questions": [
+            {
+                "question": "Question here?",
+                "options": [
+                    "Option A",
+                    "Option B",
+                    "Option C",
+                    "Option D"
+                ],
+                "answer": 0,
+                "explanation": "Explain the correct answer."
+            }
+        ]
+    }
+
+    The answer must be the correct option index (0 to 3).
+
+    Notes:
+    ${notes}
+    `;
+
+    const response = await generateAIResponse(prompt);
+
+    const cleanResponse = response
+        .replace(/```json/gi, "")
+        .replace(/```/g, "")
+        .trim();
+
+    const data = JSON.parse(cleanResponse);
+
+    if (!data.questions || data.questions.length !== 5) {
+        throw new Error("AI did not generate exactly 5 questions.");
+    }
+
+    quizData = data.questions;
+
+    displayQuiz(quizData);
+}
+
+
+// Display Quiz Questions
+function displayQuiz(questions) {
+
+    const quizContainer = document.getElementById("quizContainer");
+
+    quizContainer.innerHTML = "";
+
+    questions.forEach((item, index) => {
+
+        const questionDiv = document.createElement("div");
+
+        questionDiv.className = "quiz-question";
+
+        const heading = document.createElement("h3");
+
+        heading.textContent =
+            `${index + 1}. ${item.question}`;
+
+        questionDiv.appendChild(heading);
+
+        item.options.forEach((option, optionIndex) => {
+
+            const label = document.createElement("label");
+
+            const radio = document.createElement("input");
+
+            radio.type = "radio";
+            radio.name = `question${index}`;
+            radio.value = optionIndex;
+
+            label.appendChild(radio);
+            label.appendChild(
+                document.createTextNode(" " + option)
+            );
+
+            questionDiv.appendChild(label);
+
+        });
+
+        quizContainer.appendChild(questionDiv);
+
+    });
+
+    document.getElementById("submitQuizBtn")
+        .classList.remove("hidden");
+}
