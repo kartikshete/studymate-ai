@@ -479,3 +479,90 @@ footer a:hover {
     background: #052e16;
     color: #bbf7d0;
 }
+/* ===== PART 9: FINAL UI POLISH ===== */
+
+/* Better card interaction */
+.main-card,
+.output-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main-card:hover,
+.output-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Better input placeholder */
+textarea::placeholder,
+input::placeholder {
+    color: #999;
+}
+
+/* Better buttons */
+button {
+    cursor: pointer;
+    letter-spacing: 0.3px;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* Output section spacing */
+.output-section {
+    margin-top: 25px;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Flashcard text alignment */
+.flashcard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 150px;
+    padding: 20px;
+}
+
+/* Quiz option spacing */
+.quiz-question label {
+    display: block;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Mobile improvements */
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 26px;
+    }
+
+    header p {
+        font-size: 14px;
+    }
+
+    .main-card,
+    .output-card {
+        padding: 16px;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .flashcard-container {
+        width: 100%;
+    }
+}
