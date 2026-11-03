@@ -566,3 +566,51 @@ button:active {
         width: 100%;
     }
 }
+/* ===== PART 10: ACCESSIBILITY ===== */
+
+/* Keyboard focus visibility */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+    outline: 3px solid #667eea;
+    outline-offset: 3px;
+}
+
+/* Better text readability */
+p,
+li,
+label {
+    line-height: 1.6;
+}
+
+/* Smooth focus transition */
+input,
+textarea,
+button,
+a {
+    transition: all 0.2s ease;
+}
+
+/* Disabled elements */
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Better selection */
+::selection {
+    background: #667eea;
+    color: white;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
