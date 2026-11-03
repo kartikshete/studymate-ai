@@ -1,0 +1,42 @@
+/* Basic Setup */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    color: #1e293b;
+    min-height: 100vh;
+    padding: 30px 15px;
+}
+
+/* Main Container */
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Header */
+
+header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+header h1 {
+    font-size: 38px;
+    color: #4f46e5;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #64748b;
+    font-size: 16px;
+}
