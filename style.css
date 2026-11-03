@@ -404,3 +404,78 @@ input:focus {
 button {
     transition: all 0.3s ease;
 }
+/* Footer Styling */
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    margin-top: 40px;
+    color: #64748b;
+    font-size: 14px;
+    border-top: 1px solid #e2e8f0;
+}
+
+footer a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Utility Classes */
+
+.text-center {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/* Error Message */
+
+.error-message {
+    color: #dc2626;
+    background: #fee2e2;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Success Message */
+
+.success-message {
+    color: #15803d;
+    background: #dcfce7;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Dark Mode Footer */
+
+.dark-mode footer {
+    color: #cbd5e1;
+    border-top-color: #334155;
+}
+
+.dark-mode .error-message {
+    background: #450a0a;
+    color: #fecaca;
+}
+
+.dark-mode .success-message {
+    background: #052e16;
+    color: #bbf7d0;
+}
