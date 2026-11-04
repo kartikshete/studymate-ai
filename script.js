@@ -114,8 +114,8 @@ generateSummaryBtn.addEventListener("click", async function () {
         `;
 
         const result = await generateAIResponse(prompt);
-
-        summaryOutput.textContent = result;
+// Generate AI Quiz
+await generateQuiz(notes);
 
     } catch (error) {
         summaryOutput.textContent = error.message;
