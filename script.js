@@ -228,3 +228,69 @@ function displayQuiz(questions) {
     document.getElementById("submitQuizBtn")
         .classList.remove("hidden");
 }
+async function generateQuiz(notes) {
+    const prompt = `
+    Create exactly 5 multiple choice questions
+    based on these notes:
+
+    ${notes}
+
+    Return only valid JSON in this format:
+    [
+      {
+        "question": "Question here",
+        "options": ["A", "B", "C", "D"],
+        "answer": "Correct option",
+        "explanation": "Explanation here"
+      }
+    ]
+    `;
+
+    try {
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }]
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        const result = data.candidates[0].content.parts[0].text;
+
+        const questions = JSON.parse(
+            result.replace(/```json|```/g, "").trim()
+        );
+
+        quizContainer.innerHTML = "";
+
+        questions.forEach((q, index) => {
+            quizContainer.innerHTML += `
+                <div class="quiz-question">
+                    <h3>${index + 1}. ${q.question}</h3>
+
+                    ${q.options.map(option => `
+                        <label>
+                            <input type="radio"
+                                name="question${index}"
+                                value="${option}">
+                            ${option}
+                        </label><br>
+                    `).join("")}
+                </div>
+            `;
+        });
+
+    } catch (error) {
+        console.error("Quiz Error:", error);
+        alert("Unable to generate quiz!");
+    }
+}
