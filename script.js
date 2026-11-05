@@ -374,3 +374,82 @@ async function generateFlashcards(notes) {
         alert("Unable to generate flashcards!");
     }
 }
+// ===== PART 18: QUIZ SCORING SYSTEM =====
+
+const quizResult = document.getElementById("quizResult");
+
+submitQuizBtn.addEventListener("click", function () {
+
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+
+    if (!quizData || quizData.length === 0) {
+        alert("Please generate a quiz first!");
+        return;
+    }
+
+    quizData.forEach((question, index) => {
+
+        const selectedOption = document.querySelector(
+            `input[name="question${index}"]:checked`
+        );
+
+        if (selectedOption) {
+
+            if (Number(selectedOption.value) === Number(question.answer)) {
+                correctAnswers++;
+            } else {
+                wrongAnswers++;
+            }
+
+        } else {
+            wrongAnswers++;
+        }
+
+    });
+
+    // Calculate score
+
+    const totalQuestions = quizData.length;
+
+    const percentage = Math.round(
+        (correctAnswers / totalQuestions) * 100
+    );
+
+    // Display result
+
+    quizResult.innerHTML = `
+        <div class="quiz-result-card">
+
+            <h2>🎉 Quiz Completed!</h2>
+
+            <h1>${percentage}%</h1>
+
+            <p>Correct Answers: ${correctAnswers}</p>
+
+            <p>Wrong Answers: ${wrongAnswers}</p>
+
+            <p>Total Questions: ${totalQuestions}</p>
+
+            <h3>
+                ${
+                    percentage >= 80
+                    ? "Excellent Performance! 🌟"
+                    : percentage >= 50
+                    ? "Good Job! 👍"
+                    : "Keep Practicing! 💪"
+                }
+            </h3>
+
+        </div>
+    `;
+
+    quizResult.style.display = "block";
+
+    submitQuizBtn.disabled = true;
+
+    quizResult.scrollIntoView({
+        behavior: "smooth"
+    });
+
+});
