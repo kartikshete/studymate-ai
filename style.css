@@ -634,3 +634,35 @@ button:disabled {
     border-radius: 6px;
     cursor: pointer;
 }
+/* ===== PART 19: QUIZ HISTORY ===== */
+
+#quizHistorySection {
+    margin: 30px auto;
+    padding: 25px;
+    max-width: 800px;
+}
+
+.history-card {
+    padding: 18px;
+    margin: 15px 0;
+    border-radius: 12px;
+    background: var(--card-bg, #f1f1f1);
+    border: 1px solid #ddd;
+}
+
+.history-card h3 {
+    margin-bottom: 10px;
+}
+
+.history-card p {
+    margin: 6px 0;
+}
+
+#clearHistory {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #e74c3c;
+    color: white;
+}

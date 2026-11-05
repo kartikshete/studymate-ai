@@ -453,3 +453,95 @@ submitQuizBtn.addEventListener("click", function () {
     });
 
 });
+const percentage = Math.round(
+    (correctAnswers / totalQuestions) * 100
+);
+// ===== PART 19: QUIZ HISTORY =====
+
+const quizHistory = document.getElementById("quizHistory");
+const clearHistoryBtn = document.getElementById("clearHistory");
+
+// Display Quiz History
+
+function displayQuizHistory() {
+
+    let history = JSON.parse(
+        localStorage.getItem("quizHistory")
+    ) || [];
+
+    quizHistory.innerHTML = "";
+
+    if (history.length === 0) {
+
+        quizHistory.innerHTML = "<p>No quiz history available.</p>";
+        return;
+
+    }
+
+    history.forEach((quiz, index) => {
+
+        quizHistory.innerHTML += `
+            <div class="history-card">
+
+                <h3>Quiz ${index + 1}</h3>
+
+                <p>Score: ${quiz.score}%</p>
+
+                <p>Correct: ${quiz.correct}</p>
+
+                <p>Wrong: ${quiz.wrong}</p>
+
+                <p>Date: ${quiz.date}</p>
+
+            </div>
+        `;
+
+    });
+
+}
+
+// Save Quiz History
+
+function saveQuizHistory(correct, wrong, percentage) {
+
+    let history = JSON.parse(
+        localStorage.getItem("quizHistory")
+    ) || [];
+
+    const newResult = {
+
+        score: percentage,
+        correct: correct,
+        wrong: wrong,
+        date: new Date().toLocaleString()
+
+    };
+
+    history.unshift(newResult);
+
+    localStorage.setItem(
+        "quizHistory",
+        JSON.stringify(history)
+    );
+
+    displayQuizHistory();
+
+}
+
+// Clear Quiz History
+
+clearHistoryBtn.addEventListener("click", function () {
+
+    if (confirm("Are you sure you want to clear quiz history?")) {
+
+        localStorage.removeItem("quizHistory");
+
+        displayQuizHistory();
+
+    }
+
+});
+
+// Load History
+
+displayQuizHistory();
