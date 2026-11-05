@@ -294,3 +294,83 @@ async function generateQuiz(notes) {
         alert("Unable to generate quiz!");
     }
 }
+async function generateFlashcards(notes) {
+
+    const prompt = `
+    Create 5 flashcards from these notes.
+
+    Return only JSON:
+    [
+        {
+            "question": "What is JavaScript?",
+            "answer": "JavaScript is a programming language."
+        }
+    ]
+
+    Notes: ${notes}
+    `;
+
+    try {
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }]
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        const result = data.candidates[0].content.parts[0].text;
+
+        const cards = JSON.parse(
+            result.replace(/```json|```/g, "").trim()
+        );
+
+        flashcardContainer.innerHTML = "";
+
+        cards.forEach((card) => {
+
+            const div = document.createElement("div");
+
+            div.className = "flashcard";
+
+            div.innerHTML = `
+                <h3>${card.question}</h3>
+                <p class="answer" style="display:none">
+                    ${card.answer}
+                </p>
+                <button type="button">Show Answer</button>
+            `;
+
+            const button = div.querySelector("button");
+            const answer = div.querySelector(".answer");
+
+            button.addEventListener("click", () => {
+
+                if (answer.style.display === "none") {
+                    answer.style.display = "block";
+                    button.textContent = "Hide Answer";
+                } else {
+                    answer.style.display = "none";
+                    button.textContent = "Show Answer";
+                }
+
+            });
+
+            flashcardContainer.appendChild(div);
+
+        });
+
+    } catch (error) {
+        console.error("Flashcard Error:", error);
+        alert("Unable to generate flashcards!");
+    }
+}

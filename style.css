@@ -614,3 +614,23 @@ button:disabled {
         scroll-behavior: auto !important;
     }
 }
+.flashcard {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.flashcard h3 {
+    color: #333;
+}
+
+.flashcard button {
+    padding: 10px 20px;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
